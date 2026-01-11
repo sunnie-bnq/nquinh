@@ -11,12 +11,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #d6c6f0; /* tím pastel */
+        background: #d6c6f0;
         font-family: 'Segoe UI', sans-serif;
     }
 
     .card {
-        background: #f8c8dc; /* hồng pastel */
+        background: #f8c8dc;
         width: 320px;
         padding: 25px;
         border-radius: 30px;
@@ -66,6 +66,7 @@
         font-size: 14px;
         color: #555;
     }
+
     .music-btn {
         background: #fff;
         border: none;
@@ -75,63 +76,61 @@
         cursor: pointer;
         margin-top: 10px;
     }
+
     #flowers {
         position: fixed;
         inset: 0;
         pointer-events: none;
-}
+    }
 
     .flower {
         position: absolute;
         font-size: 22px;
         animation: fall linear forwards;
-}
+    }
 
     @keyframes fall {
         from {
             transform: translateY(-10vh) rotate(0deg);
             opacity: 1;
+        }
+        to {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
     }
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-
 </style>
 </head>
 
 <body>
 
 <div class="card">
-   
+
     <div class="time-box">
         <h2>Đã yêu nhau</h2>
         <div class="time" id="counter">00 ngày 00:00:00</div>
     </div>
 
-    <!-- nquinhh -->
-    <img class="avatar" src="https://i.imgur.com/QrK6JqC.png" alt="Judy">
+    <img class="avatar" src="https://i.imgur.com/QrK6JqC.png">
     <div class="name">nquinhh 🐰</div>
 
     <div class="heart">💖</div>
 
     <div class="date">30-12-2025</div>
 
-    <!-- thỏ -->
-    <img class="avatar" src="https://i.imgur.com/4AiXzf8.png" alt="Nick">
+    <img class="avatar" src="https://i.imgur.com/4AiXzf8.png">
     <div class="name">thỏ 🐰🦊</div>
+
     <!-- NÚT NHẠC -->
-    <button class="music-btn" onclick="toggleMusic()">🎵 Play</button>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Play</button>
 
     <!-- NHẠC NỀN -->
     <audio id="bgMusic" loop>
         <source src="ido.mp3" type="audio/mpeg">
     </audio>
-   
+
 </div>
-<!-- HOA RƠI -->
+
 <div id="flowers"></div>
 
 <script>
@@ -161,36 +160,35 @@
 
     setInterval(updateCounter, 1000);
     updateCounter();
+
+    /* ===== FIX NHẠC ===== */
     const music = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
     let isPlaying = false;
 
     function toggleMusic() {
         if (isPlaying) {
             music.pause();
-            event.target.innerText = "🎵 Play";
-    }   else {
+            musicBtn.innerText = "🎵 Play";
+        } else {
             music.play();
-            event.target.innerText = "⏸ Pause";
+            musicBtn.innerText = "⏸ Pause";
+        }
+        isPlaying = !isPlaying;
     }
-    isPlaying = !isPlaying;
-    }
+
     function createFlower() {
         const flower = document.createElement("div");
         flower.className = "flower";
         flower.innerText = "🌸";
-
         flower.style.left = Math.random() * 100 + "vw";
         flower.style.animationDuration = 5 + Math.random() * 5 + "s";
-
         document.getElementById("flowers").appendChild(flower);
-
         setTimeout(() => flower.remove(), 10000);
-}
+    }
 
-setInterval(createFlower, 700);
-
+    setInterval(createFlower, 700);
 </script>
 
 </body>
 </html>
-
