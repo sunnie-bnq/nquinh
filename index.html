@@ -91,7 +91,44 @@
         animation: fall linear forwards;
     }
 
-    @kndt.mp3" type="audio/mpeg">
+    @keyframes fall {
+        from {
+            transform: translateY(-10vh) rotate(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="time-box">
+        <h2>Đã bám nhau</h2>
+        <div class="time" id="counter">
+            <div id="days">0 ngày</div>
+            <div id="time">00:00:00</div>
+        </div>
+    </div>
+
+    <img class="avatar" src="avt1.jpg">
+    <div class="name">nquinh 🦊</div>
+
+    <div class="heart">💖</div>
+    <div class="date">30-12-2025</div>
+
+    <img class="avatar" src="avt2.jpg">
+    <div class="name">thỏ 🐰</div>
+
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Play</button>
+
+    <audio id="bgMusic" loop>
+        <source src="ndt.mp3" type="audio/mpeg">
     </audio>
 
 </div>
@@ -156,18 +193,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
