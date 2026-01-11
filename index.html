@@ -141,7 +141,10 @@
         const now = new Date();
         let diff = now - startDate;
 
-        if (diff < 0) return;
+        if (diff < 0) {
+            document.getElementById("counter").innerHTML = "Chưa tới ngày 💗";
+            return;
+        }
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         diff %= (1000 * 60 * 60 * 24);
@@ -152,9 +155,9 @@
         const minutes = Math.floor(diff / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        document.getElementById("days").innerText = `${days} ngày`;
-        document.getElementById("time").innerText = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-    }
+        document.getElementById("counter").innerHTML =
+            `${days} ngày<br>${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+}
 
     setInterval(updateCounter, 1000);
     updateCounter();
@@ -189,4 +192,5 @@
 
 </body>
 </html>
+
 
