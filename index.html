@@ -31,9 +31,16 @@
         margin-bottom: 20px;
     }
 
+    .time-box h2 {
+        margin: 0;
+        font-size: 16px;
+        color: #555;
+    }
+
     .time {
         font-size: 28px;
         font-weight: bold;
+        margin-top: 5px;
     }
 
     .avatar {
@@ -59,12 +66,46 @@
         font-size: 14px;
         color: #555;
     }
+
+    .music-btn {
+        background: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    #flowers {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    .flower {
+        position: absolute;
+        font-size: 22px;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        from {
+            transform: translateY(-10vh) rotate(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
 </style>
 </head>
 
 <body>
 
 <div class="card">
+
     <div class="time-box">
         <h2>Đã yêu nhau</h2>
         <div class="time" id="counter">00 ngày 00:00:00</div>
@@ -74,54 +115,79 @@
     <div class="name">nquinhh 🐰</div>
 
     <div class="heart">💖</div>
+
     <div class="date">30-12-2025</div>
 
     <img class="avatar" src="https://i.imgur.com/4AiXzf8.png">
     <div class="name">thỏ 🐰🦊</div>
+
+    <!-- NÚT NHẠC -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Play</button>
+
+    <!-- NHẠC NỀN -->
+    <audio id="bgMusic" loop>
+        <source src="ido.mp3" type="audio/mpeg">
+    </audio>
+
 </div>
 
-<!-- NHẠC NỀN -->
-<audio id="bgMusic" src="ido.mp3" loop></audio>
+<div id="flowers"></div>
 
 <script>
-/* ===== COUNTER ===== */
-const startDate = new Date("2025-12-30T00:00:00");
+    const startDate = new Date("2025-12-30T00:00:00");
 
-function updateCounter() {
-    const now = new Date();
-    let diff = now - startDate;
+    function updateCounter() {
+        const now = new Date();
+        let diff = now - startDate;
 
-    if (diff < 0) return;
+        if (diff < 0) {
+            document.getElementById("counter").innerHTML = "Chưa tới ngày 💗";
+            return;
+        }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff %= (1000 * 60 * 60 * 24);
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff %= (1000 * 60 * 60 * 24);
 
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    diff %= (1000 * 60 * 60);
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        diff %= (1000 * 60 * 60);
 
-    const minutes = Math.floor(diff / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        const minutes = Math.floor(diff / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    document.getElementById("counter").innerText =
-        `${days} ngày ${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-}
-setInterval(updateCounter, 1000);
-updateCounter();
+        document.getElementById("counter").innerHTML =
+            `${days} ngày ${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+    }
 
-/* ===== AUTO PLAY MUSIC ===== */
-const music = document.getElementById("bgMusic");
+    setInterval(updateCounter, 1000);
+    updateCounter();
 
-// thử phát ngay khi load
-window.addEventListener("load", () => {
-    music.play().catch(() => {
-        // nếu bị chặn → chờ người dùng click
-        document.addEventListener("click", playOnce, { once: true });
-    });
-});
+    /* ===== FIX NHẠC ===== */
+    const music = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    let isPlaying = false;
 
-function playOnce() {
-    music.play();
-}
+    function toggleMusic() {
+        if (isPlaying) {
+            music.pause();
+            musicBtn.innerText = "🎵 Play";
+        } else {
+            music.play();
+            musicBtn.innerText = "⏸ Pause";
+        }
+        isPlaying = !isPlaying;
+    }
+
+    function createFlower() {
+        const flower = document.createElement("div");
+        flower.className = "flower";
+        flower.innerText = "🌸";
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = 5 + Math.random() * 5 + "s";
+        document.getElementById("flowers").appendChild(flower);
+        setTimeout(() => flower.remove(), 10000);
+    }
+
+    setInterval(createFlower, 700);
 </script>
 
 </body>
