@@ -38,9 +38,10 @@
     }
 
     .time {
-        font-size: 28px;
+        font-size: 26px;
         font-weight: bold;
         margin-top: 5px;
+        line-height: 1.4;
     }
 
     .avatar {
@@ -108,23 +109,23 @@
 
     <div class="time-box">
         <h2>Đã yêu nhau</h2>
-        <div class="time" id="counter">00 ngày 00:00:00</div>
+        <div class="time" id="counter">
+            <div id="days">0 ngày</div>
+            <div id="time">00:00:00</div>
+        </div>
     </div>
 
     <img class="avatar" src="https://i.imgur.com/QrK6JqC.png">
     <div class="name">nquinhh 🐰</div>
 
     <div class="heart">💖</div>
-
     <div class="date">30-12-2025</div>
 
     <img class="avatar" src="https://i.imgur.com/4AiXzf8.png">
     <div class="name">thỏ 🐰🦊</div>
 
-    <!-- NÚT NHẠC -->
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Play</button>
 
-    <!-- NHẠC NỀN -->
     <audio id="bgMusic" loop>
         <source src="ido.mp3" type="audio/mpeg">
     </audio>
@@ -140,10 +141,7 @@
         const now = new Date();
         let diff = now - startDate;
 
-        if (diff < 0) {
-            document.getElementById("counter").innerHTML = "Chưa tới ngày 💗";
-            return;
-        }
+        if (diff < 0) return;
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         diff %= (1000 * 60 * 60 * 24);
@@ -154,14 +152,14 @@
         const minutes = Math.floor(diff / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        document.getElementById("counter").innerHTML =
-            `${days} ngày ${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        document.getElementById("days").innerText = `${days} ngày`;
+        document.getElementById("time").innerText =
+            `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
     }
 
     setInterval(updateCounter, 1000);
     updateCounter();
 
-    /* ===== FIX NHẠC ===== */
     const music = document.getElementById("bgMusic");
     const musicBtn = document.getElementById("musicBtn");
     let isPlaying = false;
