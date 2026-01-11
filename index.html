@@ -123,14 +123,18 @@
 
     <!-- NÚT NHẠC -->
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Play</button>
-
-    <!-- NHẠC NỀN -->
-    <audio id="bgMusic" loop>
-        <source src="ido.mp3" type="audio/mpeg">
-    </audio>
-
 </div>
 
+<!-- YOUTUBE NHẠC (ẨN) -->
+<iframe
+    id="ytMusic"
+    width="0"
+    height="0"
+    src=""
+    allow="autoplay">
+</iframe>
+
+<!-- HOA RƠI -->
 <div id="flowers"></div>
 
 <script>
@@ -161,20 +165,23 @@
     setInterval(updateCounter, 1000);
     updateCounter();
 
-    /* ===== FIX NHẠC ===== */
-    const music = document.getElementById("bgMusic");
+    /* ===== NHẠC YOUTUBE ===== */
     const musicBtn = document.getElementById("musicBtn");
     let isPlaying = false;
 
     function toggleMusic() {
-        if (isPlaying) {
-            music.pause();
-            musicBtn.innerText = "🎵 Play";
-        } else {
-            music.play();
+        const iframe = document.getElementById("ytMusic");
+
+        if (!isPlaying) {
+            iframe.src =
+            "https://www.youtube.com/embed/6t-MjBazs6o?autoplay=1&loop=1&playlist=6t-MjBazs6o";
             musicBtn.innerText = "⏸ Pause";
+            isPlaying = true;
+        } else {
+            iframe.src = "";
+            musicBtn.innerText = "🎵 Play";
+            isPlaying = false;
         }
-        isPlaying = !isPlaying;
     }
 
     function createFlower() {
@@ -192,5 +199,3 @@
 
 </body>
 </html>
-
-
