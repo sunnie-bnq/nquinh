@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="">
 <head>
 <meta charset="UTF-8">
-<title>Love Universe 💙</title>
-<link rel="icon" type="image/png" href="love.png">
+<title>Love Universe 🤍</title>
+<link rel="icon" type="image/png" href="envelope.png">
 
 <style>
 
@@ -78,6 +78,87 @@ opacity:.25;
 filter:brightness(1.5);
 }
 
+/* PASSWORD SCREEN */
+
+#lockScreen{
+
+position:fixed;
+inset:0;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:rgba(0,0,0,.88);
+
+backdrop-filter:blur(12px);
+
+z-index:5000;
+
+}
+
+.lockBox{
+
+width:320px;
+
+padding:30px;
+
+border-radius:24px;
+
+text-align:center;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+box-shadow:0 0 30px rgba(0,140,255,.4);
+
+}
+
+.lockBox h2{
+
+margin-bottom:20px;
+
+}
+
+.lockBox input{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+outline:none;
+
+border-radius:14px;
+
+margin-bottom:14px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+font-size:15px;
+
+}
+
+.lockBox input::placeholder{
+
+color:rgba(255,255,255,.7);
+
+}
+
+#error{
+
+margin-top:12px;
+
+color:#ff7b7b;
+
+font-size:14px;
+
+}
+
 /* INTRO */
 
 #intro{
@@ -87,7 +168,7 @@ inset:0;
 
 background:#081c3d;
 
-display:flex;
+display:none;
 justify-content:center;
 align-items:center;
 
@@ -329,7 +410,27 @@ border-radius:12px;
 
 <body>
 
-<div id="intro">💙 Loading Love Universe...</div>
+<!-- PASSWORD -->
+
+<div id="lockScreen">
+
+<div class="lockBox">
+
+<h2>🤍 Private Love Space</h2>
+
+<input type="password" id="passwordInput" placeholder="Enter password...">
+
+<button onclick="checkPassword()">Unlock</button>
+
+<div id="error"></div>
+
+</div>
+
+</div>
+
+<!-- INTRO -->
+
+<div id="intro">🤍 Loading Love Universe...</div>
 
 <div class="stars"></div>
 
@@ -346,7 +447,7 @@ border-radius:12px;
 
 <div class="title">Love Counter</div>
 
-<div class="heart">💙</div>
+<div class="heart">🤍</div>
 
 <div id="counter" class="counter"></div>
 
@@ -354,7 +455,7 @@ border-radius:12px;
 
 <button onclick="toggleMusic()">🎵 Music</button>
 
-<audio id="music" autoplay loop>
+<audio id="music" loop>
 <source src="ido.mp3">
 </audio>
 
@@ -363,7 +464,7 @@ border-radius:12px;
 <div class="person">
 
 <img src="avt2.jpg" class="avatar">
-<div class="name">jeru 🐢🐱 </div>
+<div class="name">ralp 🐱🐈 </div>
 
 </div>
 
@@ -384,7 +485,41 @@ R : Reload
 
 <script>
 
-const start=new Date("2026-02-09")
+/* PASSWORD */
+
+const PASSWORD="25052026"
+
+function checkPassword(){
+
+const input=document.getElementById("passwordInput").value
+
+if(input===PASSWORD){
+
+document.getElementById("lockScreen").style.display="none"
+
+document.getElementById("intro").style.display="flex"
+
+music.play()
+
+}else{
+
+document.getElementById("error").innerText="Wrong password 💔"
+
+}
+
+}
+
+document
+.getElementById("passwordInput")
+.addEventListener("keydown",e=>{
+
+if(e.key==="Enter") checkPassword()
+
+})
+
+/* LOVE COUNTER */
+
+const start=new Date("2026-05-25")
 
 function update(){
 
@@ -402,7 +537,7 @@ const s=Math.floor((diff%60000)/1000)
 
 document.getElementById("counter").innerHTML=
 
-days+" ngày<br>"+
+days+" days<br>"+
 
 String(h).padStart(2,"0")+":"+
 
@@ -412,7 +547,7 @@ String(s).padStart(2,"0")
 
 document.getElementById("extra").innerHTML=
 
-Math.floor(days/7)+" tuần • "+Math.floor(days/30)+" tháng"
+Math.floor(days/7)+" weeks • "+Math.floor(days/30)+" months"
 
 }
 
@@ -438,7 +573,7 @@ music.pause()
 
 let particles=true
 
-const icons=["💙","✨","❄️","🫧"]
+const icons=["🤍","✨","❄️","🫧"]
 
 function create(){
 
@@ -508,5 +643,3 @@ if(e.key==="r") location.reload()
 
 </body>
 </html>
-
-
